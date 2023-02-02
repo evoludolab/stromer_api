@@ -1,9 +1,18 @@
 from .general import item, BikeData
+from .connection import Connection
 
+# note: caching for "bike/<bikeid>/settings" request does not work 
 
 class BikeSettings(BikeData):
-    def __init__(self, data: dict) -> None:
-        super().__init__(data)
+    def __init__(self, connection: Connection, bikeid: int) -> None:
+        super().__init__(None)
+        self._connection = connection
+        self._bikeid = bikeid
+        self.refresh()
+
+    def refresh(self):
+        params = {"fields": "auto_lock_mode,auto_power_off_time,date_format,distance_unit,language,speed_unit,clock_format"}
+        self._data = self._connection.get_endpoint("bike/%s/settings" % self._bikeid, params)
 
     @property
     def auto_lock_mode(self) -> bool:

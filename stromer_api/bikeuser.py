@@ -1,10 +1,17 @@
 from .general import item, BikeData
+from .connection import Connection
 from .bikeshop import BikeShop
 
+# note: caching for "user" request does not work 
 
 class BikeUser(BikeData):
-    def __init__(self, data: dict) -> None:
-        super().__init__(data)
+    def __init__(self, connection: Connection) -> None:
+        super().__init__(None)
+        self._connection = connection
+        self.refresh()
+
+    def refresh(self):
+        self._data = self._connection.get_endpoint("user")
 
     @property
     def accepted_gdpr_version(self) -> str:

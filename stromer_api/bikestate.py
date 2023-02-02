@@ -1,9 +1,21 @@
 from .general import item, time_str, datetime_str, BikeData
+from .connection import Connection
 
 
 class BikeState(BikeData):
-    def __init__(self, data: dict) -> None:
-        super().__init__(data)
+    def __init__(self, connection: Connection, bikeid: int, cached: bool = True) -> None:
+        super().__init__
+        self._connection = connection
+        self._bikeid = bikeid
+        self._cached = cached
+        self.refresh(self._cached)
+
+    def refresh(self, cached: bool = True):
+        if cached:
+            params = {"cached": "true"}
+        else:
+            params = {"cached": "false"}
+        self._data = self._connection.get_endpoint("bike/%s/state" % self._bikeid, params)
 
     @property
     def trip_distance(self) -> float:
