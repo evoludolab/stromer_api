@@ -22,7 +22,7 @@ class BikeSensors(BikeData):
     def recup_level_user_offset(self) -> int:
         return item(self._data, "recup_level_user_offset")
 
-    def set(self, torque = None, recup = None):
+    def set(self, torque: int | None = None, recup: int | None = None):
         if torque is None:
             torque = self.user_torque_sensitivity
         if recup is None:

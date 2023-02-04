@@ -41,13 +41,3 @@ class BikeSettings(BikeData):
     @property
     def speed_unit(self) -> str:
         return item(self._data, "speed_unit")
-
-    @property
-    def lock(self) -> bool:
-        data = {"lock": True}
-        return self._connection.set_endpoint("bike/%s/settings/" % self._bikeid, data)
-
-    @property
-    def unlock(self) -> bool:
-        data = {"lock": False}
-        return self._connection.set_endpoint("bike/%s/settings/" % self._bikeid, data)

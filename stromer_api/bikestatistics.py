@@ -65,7 +65,7 @@ class BikeStatistics(BikeData):
         return item(self._data, "average_days")
 
     def refresh(self):
-        self._data = self._connection.get_endpoint("bike/statistics/all")
+        self._data = self._connection.get_endpoint("bike/statistics/all/")
         self.__day_stats = None
         self.__week_stats = None
         self.__month_stats = None
@@ -89,9 +89,9 @@ class BikeStatistics(BikeData):
             else:
                 stop = stop_date.strftime("%Y%m%d")
 
-            avg_rec = self._connection.get_endpoint("bike/statistics/extra_data",
+            avg_rec = self._connection.get_endpoint("bike/statistics/extra_data/",
                                         params={"end": stop, "resolution": "days"})
-            daily_info = self._connection.get_endpoint("bike/statistics",
+            daily_info = self._connection.get_endpoint("bike/statistics/",
                                            params={"start": start, "end": stop, "resolution": "days"},
                                            full_list=True)
             day_stats = {"start_date": start,
@@ -126,9 +126,9 @@ class BikeStatistics(BikeData):
             else:
                 stop = stop_date.strftime("%Y%m%d")
 
-            avg_rec = self._connection.get_endpoint("bike/statistics/extra_data",
+            avg_rec = self._connection.get_endpoint("bike/statistics/extra_data/",
                                         params={"end": stop, "resolution": "weeks"})
-            weekly_info = self._connection.get_endpoint("bike/statistics",
+            weekly_info = self._connection.get_endpoint("bike/statistics/",
                                             params={"start": start, "end": stop, "resolution": "weeks"},
                                             full_list=True)
 
@@ -179,9 +179,9 @@ class BikeStatistics(BikeData):
             else:
                 stop = "%04d%02d%02d" % (stop_year, stop_month, calendar.monthrange(stop_year, stop_month)[1])
 
-            avg_rec = self._connection.get_endpoint("bike/statistics/extra_data",
+            avg_rec = self._connection.get_endpoint("bike/statistics/extra_data/",
                                         params={"end": stop, "resolution": "months"})
-            monthly_info = self._connection.get_endpoint("bike/statistics",
+            monthly_info = self._connection.get_endpoint("bike/statistics/",
                                              params={"start": start, "end": stop, "resolution": "months"},
                                              full_list=True)
 
@@ -230,9 +230,9 @@ class BikeStatistics(BikeData):
             else:
                 stop = stop_date.strftime("%Y%m%d")
 
-            avg_rec = self._connection.get_endpoint("bike/statistics/extra_data",
+            avg_rec = self._connection.get_endpoint("bike/statistics/extra_data/",
                                         params={"end": stop, "resolution": "years"})
-            yearly_info = self._connection.get_endpoint("bike/statistics",
+            yearly_info = self._connection.get_endpoint("bike/statistics/",
                                             params={"start": start, "end": stop, "resolution": "years"},
                                             full_list=True)
 

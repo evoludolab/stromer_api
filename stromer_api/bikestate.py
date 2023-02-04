@@ -110,5 +110,45 @@ class BikeState(BikeData):
         return item(self._data, "total_energy_consumption")
 
     @property
-    def lock_flag(self) -> bool:
+    def locked(self) -> bool:
         return item(self._data, "lock_flag")
+
+    # return false if changing locked state unsuccessful
+    def lock(self, lock: bool = True) -> bool:
+        if lock == self.locked:
+            # nothing to do
+            return True
+        data = {"lock": lock}
+        response = self._connection.set_endpoint("bike/%s/settings/" % self._bikeid, data)
+        newlock = item(response, "lock")
+        if newlock is None:
+            # something went wrong...
+            return False
+        # update _data
+        self._data["lock_flag"] = newlock
+        return True
+
+    def unlock(self) -> bool:
+        return self.lock(lock = False)
+
+    # successfully tested modes: {on, off, flash}
+    # return false if changing light settings unsuccessful
+    def light(self, mode: str = 'on') -> bool:
+        if self.locked:
+            # cannot manipulate lights if bike is locked
+            return False
+        json = {"mode": mode}
+        response = self._connection.set_endpoint("bike/%s/light/" % self._bikeid, json)
+        newmode = item(response, "mode")
+        if newmode is None:
+            # something went wrong...
+            return False
+        # update _data
+        match newmode:
+            case 'off':
+                self._data["light_on"] = 0
+            case 'on':
+                self._data["light_on"] = 1
+            case _:
+                return False
+        return True
