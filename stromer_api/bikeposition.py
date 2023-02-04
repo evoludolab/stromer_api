@@ -14,7 +14,7 @@ class BikePosition(BikeData):
             params = {"cached": "true"}
         else:
             params = {"cached": "false"}
-        self._data = self._connection.get_endpoint("bike/%s/position" % self._bikeid, params)
+        self._data = self._connection.get_endpoint("bike/%s/position/" % self._bikeid, params)
 
     @property
     def latitude(self) -> float:

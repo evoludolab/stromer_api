@@ -12,7 +12,7 @@ class BikeSettings(BikeData):
 
     def refresh(self):
         params = {"fields": "auto_lock_mode,auto_power_off_time,date_format,distance_unit,language,speed_unit,clock_format"}
-        self._data = self._connection.get_endpoint("bike/%s/settings" % self._bikeid, params)
+        self._data = self._connection.get_endpoint("bike/%s/settings/" % self._bikeid, params)
 
     @property
     def auto_lock_mode(self) -> bool:

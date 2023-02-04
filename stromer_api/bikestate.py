@@ -15,7 +15,7 @@ class BikeState(BikeData):
             params = {"cached": "true"}
         else:
             params = {"cached": "false"}
-        self._data = self._connection.get_endpoint("bike/%s/state" % self._bikeid, params)
+        self._data = self._connection.get_endpoint("bike/%s/state/" % self._bikeid, params)
 
     @property
     def trip_distance(self) -> float:

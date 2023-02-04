@@ -11,7 +11,7 @@ class BikeUser(BikeData):
         self.refresh()
 
     def refresh(self):
-        self._data = self._connection.get_endpoint("user")
+        self._data = self._connection.get_endpoint("user/")
 
     @property
     def accepted_gdpr_version(self) -> str:
