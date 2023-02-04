@@ -1,6 +1,7 @@
 from urllib.parse import urlencode, parse_qs, splitquery
 
 import requests
+import logging
 
 class Connection:
     __url = "https://stromer-portal.ch/mobile/v4/login/"
@@ -50,7 +51,6 @@ class Connection:
             raise Exception("Authentication failed")
 
     def get_endpoint(self, endpoint: str, params: dict = None, full_list: bool = False):
-        msg = None
         try:
             if params is None:
                 params = {}
@@ -58,15 +58,36 @@ class Connection:
             res = requests.get(self.__api_url + endpoint,
                                headers={"Authorization": "Bearer %s" % self.__access_token},
                                params=params)
-            json = res.json()
+            resj = res.json()
+            if res.status_code != 200:
+                logging.warning("Problem in request: %s" % resj["result"])
+                return None
 
-            if isinstance(json["data"], list):
+            data = resj["data"]
+            if isinstance(data, list):
                 if full_list:
-                    return json["data"]
+                    return data
                 else:
-                    return json["data"][0]
+                    return data[0]
             else:
-                return json["data"]
+                return data
+
+        except:
+            raise Exception("Error in request parameters")
+
+    def set_endpoint(self, endpoint: str, settings: dict = None, full_list: bool = False):
+        try:
+            if settings is None:
+                return None
+
+            resp = requests.post(self.__api_url + endpoint,
+                               headers={"authorization": "Bearer %s" % self.__access_token},
+                               json=settings)
+            data = resp.json()["data"]
+            if resp.status_code != 200:
+                logging.warning("Problem in request: %s" % data["result"])
+                return None
+            return data
 
         except:
             raise Exception("Error in request parameters")
