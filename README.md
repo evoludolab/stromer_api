@@ -217,15 +217,17 @@ Properties and methods of `StromerBike`:
     * `country_code` string
 
 This API makes use of the following "unofficial" endpoints:
-    * `/bike/`
-    * `/bike/<bike_id>/state/`
-    * `/bike/<bike_id>/position/`
-    * `/bike/<bike_id>/settings/`
-    * `/bike/<bike_id>/position/`
-    * `/bike/<bike_id>/service_info/`
-    * `/bike/<bike_id>/light/`
-    * `/bike/statistics/all/`
-    * `/bike/statistics/extra_data/`
-If you are aware of new or others that work please leave a message.
+* `/bike/`
+* `/bike/<bike_id>/state/`
+* `/bike/<bike_id>/position/`
+* `/bike/<bike_id>/settings/`
+* `/bike/<bike_id>/service_info/`
+* `/bike/<bike_id>/light/`
+* `/bike/statistics/`
+* `/bike/statistics/all/`
+* `/bike/statistics/extra_data/`
+* `/user/`
+
+If you are aware of new or other endpoints that work please leave a message.
 
 Any suggestions for additions are of course also very welcome!
