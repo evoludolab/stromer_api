@@ -7,6 +7,7 @@ from .bikeshop import BikeShop
 class BikeUser(BikeData):
     def __init__(self, connection: Connection) -> None:
         super().__init__(None)
+        self.__shop = None
         self._connection = connection
         self.refresh()
 
@@ -73,6 +74,13 @@ class BikeUser(BikeData):
     def weight(self) -> float:
         return item(self._data, "weight")
 
+    def set_shop(self, shop: BikeShop = None) -> BikeShop | None:
+        if shop is None:
+            self.__shop = BikeShop(item(self._data, "shop"))
+        else:
+            self.__shop = shop
+        return self.__shop
+
     @property
-    def shop(self) -> BikeShop:
-        return BikeShop(item(self._data, "shop"))
+    def shop(self) -> BikeShop | None:
+        return self.__shop

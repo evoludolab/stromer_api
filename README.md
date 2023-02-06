@@ -27,6 +27,11 @@ Properties and methods of `StromerBike`:
     * `.hardware` string
     * `.connectivity` string
     * `.has_crash_detection` bool
+    * `.vin` string
+    * `.serial` string
+    * `.servicelogs` [dict] with `{'note': str, 'created_on': int}`
+    * `.bikeparts` [dict] with `{'category': string, 'name': string, 'serial': str}` and categories 
+    `key, accumulator, motor, fork, display, controller`
 
     as well as objects:
     * `.state`
@@ -35,6 +40,8 @@ Properties and methods of `StromerBike`:
     * `.sensors`
     * `.motor_tuning`
     * `.maintenance`
+    * `.service`
+    * `.shop` see also `.user.shop`
 
 * `bike.state` BikeState object with the following properties
     * `.trip_distance` float
@@ -109,6 +116,20 @@ Properties and methods of `StromerBike`:
     * `.customer_enabled_maintenance` bool
     * `.last_maintenance_reset_km` int
     * `.last_maintenance_reset_date` string
+
+* `.bike.shop` BikeShop object with the following properties
+    * `.latitude` float
+    * `.longitude` float
+    * `.name` string
+    * `.debitor` string
+    * `.phone` string
+    * `.street` string
+    * `.postal_code` string
+    * `.city` string
+    * `.country_name` string
+    * `.country_code` string
+
+    see also `.user.shop`
 
 * `.statistics` BikeStatistics object with the following properties
     * `total_km` float
@@ -204,17 +225,7 @@ Properties and methods of `StromerBike`:
     as well as objects:
     * `.shop`
 
-* `.user.shop` BikeShop object with the following properties
-    * `latitude` float
-    * `longitude` float
-    * `name` string
-    * `debitor` string
-    * `phone` string
-    * `street` string
-    * `postal_code` string
-    * `city` string
-    * `country_name` string
-    * `country_code` string
+* `.user.shop` BikeShop object, see `.bike.shop` for properties
 
 This API makes use of the following "unofficial" endpoints:
 * `/bike/`
