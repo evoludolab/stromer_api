@@ -119,7 +119,7 @@ class BikeState(BikeData):
             # nothing to do
             return True
         data = {"lock": lock}
-        response = self._connection.set_endpoint("bike/%s/settings/" % self._bikeid, data)
+        response = self._connection.post_endpoint("bike/%s/settings/" % self._bikeid, data)
         newlock = item(response, "lock")
         if newlock is None:
             # something went wrong...
@@ -138,7 +138,7 @@ class BikeState(BikeData):
             # cannot manipulate lights if bike is locked
             return False
         json = {"mode": mode}
-        response = self._connection.set_endpoint("bike/%s/light/" % self._bikeid, json)
+        response = self._connection.post_endpoint("bike/%s/light/" % self._bikeid, json)
         newmode = item(response, "mode")
         if newmode is None:
             # something went wrong...

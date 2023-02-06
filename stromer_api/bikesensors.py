@@ -34,4 +34,4 @@ class BikeSensors(BikeData):
         data = {"user_torque_sensitivity": torque, "recup_level_user_offset": recup}
         # note: both settings must be set at the same time otherwise the POST request
         #   is rejected with a syntax error
-        return self._connection.set_endpoint("bike/%s/settings/" % self._bikeid, data)
+        return self._connection.post_endpoint("bike/%s/settings/" % self._bikeid, data)

@@ -75,7 +75,7 @@ class Connection:
         except:
             raise Exception("Error in request parameters")
 
-    def set_endpoint(self, endpoint: str, settings: dict = None, full_list: bool = False) -> dict | None:
+    def post_endpoint(self, endpoint: str, settings: dict = None, full_list: bool = False) -> dict | None:
         try:
             if settings is None:
                 return None

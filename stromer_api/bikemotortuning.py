@@ -41,4 +41,4 @@ class BikeMotorTuning(BikeData):
         data = {"tuning_speed": speed, "tuning_torque": torque, "tuning_agility": agility}
         # note: all three settings must be set at the same time otherwise the POST request
         #   is rejected with a syntax error
-        return self._connection.set_endpoint("bike/%s/settings/" % self._bikeid, data)
+        return self._connection.post_endpoint("bike/%s/settings/" % self._bikeid, data)
