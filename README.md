@@ -73,7 +73,9 @@ Properties and methods of `StromerBike`:
     * `.lock(lock = True)` locks and unlocks the bike
     * `.unlock()` unlocks the bike (convenience method, same as `.lock(lock = False)`)
     * `.trip_reset()` resets the trip information
-    * `.light(mode = `on`)` turns light on, off, or flash (requires that bike is unlocked)
+    * `.light(mode = 'on')` controls the light with `mode`s `on`, `off`, or `flash` (requires that bike is unlocked)
+    * `.flash(force = False)` flash lights (convenience method, similar to `.light(mode = 'flash')`). If `force = True` 
+    the bike is unlocked first (if necessary) and then locked again.
 
 * `.bike.position` BikePosition object with the following properties
     * `.latitude` float

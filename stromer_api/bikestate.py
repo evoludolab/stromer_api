@@ -148,10 +148,22 @@ class BikeState(BikeData):
             return False
         # update _data
         match newmode:
+            case 'flash':
+                return True
             case 'off':
                 self._data["light_on"] = 0
+                return True
             case 'on':
                 self._data["light_on"] = 1
-            case _:
-                return False
-        return True
+                return True
+        return False
+
+    def flash(self, force: bool = False) -> bool:
+        # if force = True unlock bike first
+        if force and self.locked:
+            self.unlock()
+            success = self.light('flash')
+            self.lock()
+        else:
+            success = self.light('flash')
+        return success
