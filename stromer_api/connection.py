@@ -50,7 +50,7 @@ class Connection:
         except:
             raise Exception("Authentication failed")
 
-    def get_endpoint(self, endpoint: str, params: dict = None, full_list: bool = False):
+    def get_endpoint(self, endpoint: str, params: dict = None, full_list: bool = False) -> dict | None:
         try:
             if params is None:
                 params = {}
@@ -60,7 +60,7 @@ class Connection:
                                params=params)
             resj = res.json()
             if res.status_code != 200:
-                logging.warning("Problem in request: %s" % resj["result"])
+                logging.warning("Problem in GET request: %s" % resj["result"])
                 return None
 
             data = resj["data"]
@@ -73,21 +73,34 @@ class Connection:
                 return data
 
         except:
-            raise Exception("Error in request parameters")
+            raise Exception("Error in GET request")
 
-    def post_endpoint(self, endpoint: str, settings: dict = None, full_list: bool = False) -> dict | None:
+    def post_endpoint(self, endpoint: str, settings: dict = None) -> dict | None:
         try:
             if settings is None:
-                return None
+                settings = {}
 
             resp = requests.post(self.__api_url + endpoint,
                                headers={"authorization": "Bearer %s" % self.__access_token},
                                json=settings)
             data = resp.json()["data"]
             if resp.status_code != 200:
-                logging.warning("Problem in request: %s" % data["result"])
+                logging.warning("Problem in POST request: %s" % data["result"])
                 return None
             return data
 
         except:
-            raise Exception("Error in request parameters")
+            raise Exception("Error in POST request")
+
+    def delete_endpoint(self, endpoint: str) -> bool:
+        try:
+            resp = requests.delete(self.__api_url + endpoint,
+                               headers={"authorization": "Bearer %s" % self.__access_token})
+            # on success server responds with 204 No Content 
+            if resp.status_code != 204:
+                logging.warning("Problem in DELETE request: %s" % resp.status_code)
+                return False
+            return True
+
+        except:
+            raise Exception("Error in DELETE request")

@@ -17,6 +17,9 @@ class BikeState(BikeData):
             params = {"cached": "false"}
         self._data = self._connection.get_endpoint("bike/%s/state/" % self._bikeid, params)
 
+    def trip_reset(self) -> bool:
+        return self._connection.delete_endpoint("bike/id/%s/trip_data/" % self._bikeid)
+
     @property
     def trip_distance(self) -> float:
         return item(self._data, "trip_distance")

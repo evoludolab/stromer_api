@@ -72,6 +72,7 @@ Properties and methods of `StromerBike`:
     and methods
     * `.lock(lock = True)` locks and unlocks the bike
     * `.unlock()` unlocks the bike (convenience method, same as `.lock(lock = False)`)
+    * `.trip_reset()` resets the trip information
     * `.light(mode = `on`)` turns light on, off, or flash (requires that bike is unlocked)
 
 * `.bike.position` BikePosition object with the following properties
@@ -227,13 +228,14 @@ Properties and methods of `StromerBike`:
 
 * `.user.shop` BikeShop object, see `.bike.shop` for properties
 
-This API makes use of the following "unofficial" endpoints:
+This API makes use of the following unofficial endpoints:
 * `/bike/`
 * `/bike/<bike_id>/state/`
 * `/bike/<bike_id>/position/`
 * `/bike/<bike_id>/settings/`
 * `/bike/<bike_id>/service_info/`
 * `/bike/<bike_id>/light/`
+* `/bike/id/<bike_id>/trip_data/`
 * `/bike/statistics/`
 * `/bike/statistics/all/`
 * `/bike/statistics/extra_data/`
